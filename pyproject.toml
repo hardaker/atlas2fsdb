@@ -1,0 +1,42 @@
+[tool.hatch]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "atlas2fsdb"
+dynamic = ["version"]
+requires-python = ">=3.10"
+description  = ""
+readme="README.md"
+author="Wes Hardaker"
+dependencies= [
+    "rich",
+    "rich-argparse",
+    "rich-logging",
+    "pyfsdb",
+    "dnspython",
+]
+
+[project.license]
+file = "LICENSE.txt"
+
+[project.urls]
+Homepage = "https://github.com/hardaker/atlas2fsdb"
+
+[tool.hatch.version]
+path = "modulename/__init__.py"
+
+[project.scripts]
+atlas2fsdb = "atlas2fsdb.atlas2fsdb:main"
+
+[tool.ruff]
+#select = ["ALL"]   # gulp
+fixable = ["ALL"]  # double gulp
+ignore = ["E501", "PLC0414", "S101", "ERA001"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/atlas2fsdb",
+]
