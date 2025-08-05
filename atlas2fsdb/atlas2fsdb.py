@@ -130,6 +130,12 @@ def main():
         out_file_handle=args.output_file, out_column_names=column_names
     ) as outh:
         for content in contents:
+            if "resultset" not in content and "result" in content:
+                content["resultset"] = [content["result"]]
+
+            # TODO(hardaker): errors need handling here (no result, just 'error')
+            if "resultset" not in content:
+                continue
             for result in content["resultset"]:
                 row = [content.get(outer_contents[key]) for key in outer_contents]
                 row.extend([result.get(result_contents.get(key)) for key in result_contents])
