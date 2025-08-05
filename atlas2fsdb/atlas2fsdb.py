@@ -96,7 +96,7 @@ def main():
 
     # each nested result has its own parameters
     result_contents = {
-        "timestamp": "time",
+        "result_timestamp": "time",
         "dst_addr": "dst_addr",
         "dst_port": "dst_port",
         "address_family": "af",
