@@ -115,11 +115,11 @@ def main():
         "arcount": "ARCOUNT",
     }
 
-    dns_abuf_contents = {
+    dns_abuf_contents = [
         "opcode",
         "rcode",
         "nsid",
-    }
+    ]
 
     column_names = list(outer_contents.keys())
     column_names.extend(result_contents.keys())
