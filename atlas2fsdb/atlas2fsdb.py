@@ -130,8 +130,13 @@ def main():
         out_file_handle=args.output_file, out_column_names=column_names
     ) as outh:
         for content in contents:
+
+            # content is either a single response itself, or contains
+            # some fields inside a "resultset".  We fake the resultset
+            # here by just nesting the content within it, so all the code
+            # below works either in the multiple case or a singular case
             if "resultset" not in content and "result" in content:
-                content["resultset"] = [content["result"]]
+                content["resultset"] = [content]
 
             # TODO(hardaker): errors need handling here (no result, just 'error')
             if "resultset" not in content:
