@@ -116,6 +116,8 @@ def main():
     }
 
     dns_abuf_contents = [
+        "qtype",
+        "qname",
         "opcode",
         "rcode",
         "nsid",
@@ -152,6 +154,8 @@ def main():
                         try:
                             dnsmsg = dns.message.from_wire(base64.b64decode(result["result"]["abuf"]))
 
+                            row.append(dnsmsg.question[0].rdtype.name)
+                            row.append(dnsmsg.canonical_name().to_text())
                             row.append(dnsmsg.opcode().name)
                             row.append(dnsmsg.rcode().name)
 
