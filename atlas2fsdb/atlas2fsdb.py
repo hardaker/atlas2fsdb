@@ -92,6 +92,7 @@ def main():
         "query_type": "type",
         "event_timestamp": "timestamp",
         "stored_timestamp": "stored_timestamp",
+        "error": "error",
     }
 
     # each nested result has its own parameters
@@ -140,13 +141,19 @@ def main():
             if "resultset" not in content and "result" in content:
                 content["resultset"] = [content]
 
-            # TODO(hardaker): errors need handling here (no result, just 'error')
+            # handle missing data and errors
             if "resultset" not in content:
+                if "error" in content:
+                    row = [content.get(outer_contents[key]) for key in outer_contents]
+                    outh.append(row)
                 continue
+
             for result in content["resultset"]:
                 row = [content.get(outer_contents[key]) for key in outer_contents]
                 row.extend([result.get(result_contents.get(key)) for key in result_contents])
 
+                # if "error" in result:
+                #     import pdb ; pdb.set_trace()
                 if "result" in result:
                     row.extend([result["result"].get(result_result_contents[key]) for key in result_result_contents])
 
