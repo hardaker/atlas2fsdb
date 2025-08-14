@@ -2,4 +2,4 @@ rich
 rich-argparse
 rich-logging
 pyfsdb
-dnspython
+dnspython>=2.7
