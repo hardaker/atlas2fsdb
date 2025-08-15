@@ -87,6 +87,7 @@ def main():
     # a given query contains attributes that apply to
     # a nested list of multiple results
     outer_contents = {
+        "msm_id": "msm_id",
         "probe_id": "prb_id",
         "probe_src": "from",
         "query_type": "type",
