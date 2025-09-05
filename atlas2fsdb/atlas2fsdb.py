@@ -93,7 +93,7 @@ def main():
         "query_type": "type",
         "event_timestamp": "timestamp",
         "stored_timestamp": "stored_timestamp",
-        "error": "error",
+        "error": "error",  # NOTE: MUST BE LAST for code below to work
     }
 
     # each nested result has its own parameters
@@ -153,8 +153,11 @@ def main():
                 row = [content.get(outer_contents[key]) for key in outer_contents]
                 row.extend([result.get(result_contents.get(key)) for key in result_contents])
 
-                # if "error" in result:
-                #     import pdb ; pdb.set_trace()
+                if "error" in result:
+                    row[len(outer_contents) - 1] = result['error']
+                    outh.append(row)
+                    continue
+
                 if "result" in result:
                     row.extend([result["result"].get(result_result_contents[key]) for key in result_result_contents])
 
