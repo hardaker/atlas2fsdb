@@ -55,3 +55,30 @@ dbstats response_time < downloaded.fsdb
 #  | ./atlas2fsdb/atlas2fsdb.py new.json new.fsdb
 #   | dbcolstats response_time
 ```
+
+## Getting average response time per ASN
+
+(requires [ip2asn] installed)
+
+[ip2asn]: https://github.com/hardaker/ip2asn
+
+``` bash
+cat new.fsdb | 
+    ip2asn -I - -k probe_src | 
+    dbcol ASN response_time | 
+    dbmultistats -k ASN response_time | 
+    dbcol ASN min mean max | 
+    dbsort -n mean |
+    pdbformat -f "{ASN:>7} {min:>10.03f} {max:>10.03f}"
+```
+
+``` text
+ 202422      0.359      1.419
+   9268      0.710      1.148
+  22548      1.255     11.331
+    553      3.722     10.105
+    559      5.529      7.128
+   2486      7.174      7.814
+   5539      7.183      8.503
+  25192      7.563      7.607
+```
